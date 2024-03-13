@@ -24,7 +24,8 @@ SECRET_KEY = 'django-insecure-0s5^@e+1=$qq9nhs-$dov$-!w+%&to8shqu4r=%ukop5g%k9oh
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [ 'localhost', '127.0.0.1', '192.168.30.116', '192.168.1.8']
+
 
 # Application definition
 
@@ -35,7 +36,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'scoremanagementapp.apps.ScoremanagementappConfig',
+    'myapp.apps.ScoremanagementappConfig',
+    'rest_framework',
+    'drf_yasg',
+    'ckeditor',
+    'ckeditor_uploader',
+    'cloudinary',
+    'oauth2_provider',
 ]
 
 MIDDLEWARE = [
@@ -66,6 +73,15 @@ TEMPLATES = [
     },
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS':
+        'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 7,
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+    )
+}
+
 WSGI_APPLICATION = 'StudentScoreManagement.wsgi.application'
 
 # Database
@@ -74,7 +90,7 @@ WSGI_APPLICATION = 'StudentScoreManagement.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'scoremanagementdb',
+        'NAME': 'myappdb',
         'USER': 'root',
         'PASSWORD': '123456',
         'HOST': ''  # mặc định localhost
@@ -84,7 +100,7 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
-AUTH_USER_MODEL = 'scoremanagementapp.user'
+AUTH_USER_MODEL = 'myapp.user'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -123,6 +139,21 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 import pymysql
+
 pymysql.install_as_MySQLdb()
 
-MEDIA_ROOT = '%s/scoremanagementapp/static/' % BASE_DIR
+MEDIA_ROOT = '%s/myapp/static/' % BASE_DIR
+
+CKEDITOR_UPLOAD_PATH = "static/ckeditor/images/"
+
+import cloudinary
+
+cloudinary.config(
+    cloud_name="dhrkxbsmh",
+    api_key="592464627742359",
+    api_secret="W0sSsXxe45sYnNLBOZ2MDj5g0GA"
+)
+
+
+CLIENT_ID = 'mowJgUGc1C9zbv5aUzQxjltLNg5qi2tnLAvB6aHc'
+CLIENT_SECRET = 'OO7v5OlQEFkUqtbO3JzFwgJUKk7zJvR0OF2vVPxLi32QZOOEnq3BGkuzhqV7t3pw3nxA4p0FZIBRerDaEYUUFkIRPhIFpuA9TJUXFo3mhoHvSEC1xJcCpSCLMv3uTqB6'

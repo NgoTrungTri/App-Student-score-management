@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "MyScoreApp",
+    "slug": "MyScoreApp",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "MyScoreApp"
+}
